@@ -1,0 +1,40 @@
+{
+  "name": "ohlcvcreator",
+  "description": "",
+  "version": "beta-v0.0.1",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Solcrates-Labs/ohlcvcreator.git"
+  },
+  "keywords": [
+    "nodejs",
+    "api",
+    "crypto",
+    "server",
+    "api-server",
+    "ohlcv",
+    "ohlcv-data",
+    "ohlcv-api"
+  ],
+  "author": "PunishedHideo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Solcrates-Labs/ohlcvcreator/issues"
+  },
+  "homepage": "https://github.com/Solcrates-Labs/ohlcvcreator#readme",
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "prettier": "^3.3.3"
+  },
+  "dependencies": {
+    "@solana/web3.js": "^1.95.8",
+    "chalk": "^4.1.2",
+    "cross-fetch": "^4.0.0",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.1"
+  }
+}
