@@ -9,14 +9,12 @@ expressApp.use(express.json());
 
 // GLOBAL VARIABLES LIST
 const address = new solana.PublicKey(
-  "Fch1oixTPri8zxBnmdCEADoJW2toyFHxqDZacQkwdvSP" // HARAMBE
+  "Fch1oixTPri8zxBnmdCEADoJW2toyFHxqDZacQkwdvSP" // HARAMBE - maybe address variable should be assigned via dotenv
 ); // address to base58 converter(address needs to be converted to whatever)
-// const solAddress = "So11111111111111111111111111111111111111112";
-// You can use dotenv file(.env) that will be created in project root folder, or input you rpc address inside code HERE
 
+// clean this mess later
 let connection, tokenDecimals, rpcUrl, port;
-let slotChecker = true; // THIS TWO MUST BE REPLACED SOMEHOW SO THEY SHOULD NOT BE GLOBAL(because they are actually only in their own functions)
-// let secondChecker = true; // Might not need this one
+let slotChecker = true;
 let programPrimer = false;
 let firstSlot;
 let secondSlot;
@@ -130,7 +128,7 @@ async function UTCExecutor() {
     timeMinutes = time.getMinutes();
 
     if (
-      (timeHours == 3 && // gonna change this first numbers to test. After testing, return the numbers to 3, 59, 59
+      (timeHours == 3 &&
         timeMinutes == 59 &&
         timeSeconds == 59 &&
         !programPrimer) ||
@@ -162,8 +160,6 @@ async function UTCExecutor() {
 
     if (timeSeconds == 0 && programPrimer == true) {
       getVolume();
-      // fetcher();
-      // console.log(timeSeconds);
       await new Promise((wait) => setTimeout(wait, 1000));
     }
   } catch (error) {
@@ -190,7 +186,7 @@ async function fetcher() {
       firstTriggerOHLC = true;
     }
 
-    // should be arrays sorted by time. COMPLETE MESS FOR NOW
+    // todo - clean this mess
     let priceOpen = usdPriceArray[0];
     let priceOpenInteger = parseFloat(priceOpen); // parsed to integer(was string)
     let priceHigh = Math.max(...usdPriceArray);
@@ -340,7 +336,6 @@ async function getVolume() {
         commitment: "confirmed",
       });
       let signatures = await connection.getSignaturesForAddress(address);
-      // console.log(signatures);
       let signaturesList = signatures
         .filter(
           (item) =>
@@ -349,10 +344,6 @@ async function getVolume() {
             item.err == null
         )
         .map((item) => item.signature);
-      // slotChecker = true;
-      // console.log(signaturesList); // if there is nothing in the list, what to store to the db and api?(need solution)
-      // console.log('First ' + firstSlot)
-      // console.log('Second ' + secondSlot);
 
       let transactions = await Promise.all(
         signaturesList.map((signature) =>
@@ -366,7 +357,6 @@ async function getVolume() {
       let signer = transactions.map((item) =>
         item.transaction.message.staticAccountKeys[0].toString()
       );
-      // console.log(signer);
 
       let postBalances = transactions
         .map((item) => item.meta.postTokenBalances) //
@@ -384,11 +374,8 @@ async function getVolume() {
         (item) => item.uiTokenAmount.amount
       ); // If something of this doesn't show up It is ZERO
 
-      // console.log(postBalances);
-      // console.log(preBalances);
-
       let volumeToken = postBalancesTokenAmount.map((post, index) => {
-        // No clue what this shit does
+        // Investigate further
         let preValue =
           preBalancesTokenAmount[index] !== undefined
             ? preBalancesTokenAmount[index]
@@ -396,15 +383,13 @@ async function getVolume() {
         let postValue = post !== undefined ? post : 0;
         return postValue - preValue;
       });
-      // console.log(volumeToken);
 
       volumeToken = volumeToken.reduce(
         (accumulator, currentValue) => accumulator + currentValue,
         0
       );
       let volumeTokenPositive = Math.abs(volumeToken);
-      // console.log(volumeTokenPositive);
-      // figure out how to code more compact, too many vars and such(prob use then and such shit)
+      // figure out how to code more compact
       let decimalsMultiplier = "1" + "0".repeat(tokenDecimals);
       let decimalsMultiplierNumber = parseInt(decimalsMultiplier, 10);
 
@@ -416,19 +401,16 @@ async function getVolume() {
       let volumeAmountDecimal =
         (volumeTokenPositive / decimalsMultiplierNumber) * dataPrice;
       let volumeAmount = Math.round(volumeAmountDecimal); // Probably will not be so precise. Needs testing with jest and actual volume
-      // figure out how to code more compact, too many vars and such(prob use then and such shit)
-      // console.log("Amount in usd: " + volumeAmount);
+      // figure out how to code more compact
+
 
       volume1mArray.unshift(volumeAmount);
-      // console.log(volume1mArray);
-      // console.log('Volume1m array lenght = ' + volume1mArray.length)
 
       if (volume1mArray.length % 5 === 0) {
         let volume5m = volume1mArray // So the difference between volume5m and volume5mArray is that volume5m stores one integer for 5m and then it is pushed into actual volume5mArray which is array that holds all 5m data
           .slice(0, 5)
           .reduce((accumulator, currentValue) => accumulator + currentValue, 0);
         volume5mArray.unshift(volume5m);
-        // console.log("pushing...");
       }
 
       if (volume1mArray.length % 15 === 0) {
@@ -436,7 +418,6 @@ async function getVolume() {
           .slice(0, 15)
           .reduce((accumulator, currentValue) => accumulator + currentValue, 0);
         volume15mArray.unshift(volume15m);
-        // console.log("pushing...");
       }
 
       if (volume1mArray.length % 60 === 0) {
@@ -444,7 +425,6 @@ async function getVolume() {
           .slice(0, 60)
           .reduce((accumulator, currentValue) => accumulator + currentValue, 0);
         volume1hrArray.unshift(volume1hr);
-        // console.log("pushing...");
       }
 
       if (volume1mArray.length % 240 === 0) {
@@ -452,11 +432,10 @@ async function getVolume() {
           .slice(0, 240)
           .reduce((accumulator, currentValue) => accumulator + currentValue, 0);
         volume4hrArray.unshift(volume4hr);
-        // console.log("pushing...");
       }
 
       firstSlot = secondSlot;
-      buyAmountdecimal = null; // erases the amount to make it different next time(if no txs are taking place)
+      buyAmountdecimal = null;
       secondSlot = null;
     }
   } catch (error) {
@@ -606,21 +585,20 @@ expressApp
     res.status(405).send({ error: "Method Not Allowed" });
   });
 
-  async function serverStart() {
-    try {
-      await connector();
-      console.log("Connected.");
-  
-      expressApp.listen(port, () => {
-        console.log(`OHLCV API listening on port ${port}`);
-      });
+async function serverStart() {
+  try {
+    await connector();
+    console.log("Connected.");
 
-    } catch (error) {
-      console.error("Error encountered during startup: ", error);
-      process.exit(1); // Завершаем работу сервера в случае ошибки
-    }
+    expressApp.listen(port, () => {
+      console.log(`OHLCV API listening on port ${port}`);
+    });
+  } catch (error) {
+    console.error("Error encountered during startup: ", error);
+    process.exit(1);
   }
-  
+}
+
 serverStart();
 
 module.exports = expressApp;
