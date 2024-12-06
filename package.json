@@ -1,6 +1,6 @@
 {
   "name": "ohlcvcreator",
-  "description": "",
+  "description": "Live OHLCV data getter for Solana on-chain memecoins, based on Solana WEB3 SDK and Jupiter Exchange Price API",
   "version": "beta-v0.0.1",
   "main": "src/index.js",
   "scripts": {
