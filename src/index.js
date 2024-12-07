@@ -123,9 +123,9 @@ async function UTCExecutor() {
   // This function should be a primer of the program. UTC minute controlled
   try {
     let time = new Date();
-    timeSeconds = time.getSeconds();
-    timeHours = time.getHours();
-    timeMinutes = time.getMinutes();
+    timeSeconds = time.getUTCSeconds();
+    timeHours = time.getUTCHours();
+    timeMinutes = time.getUTCMinutes();
 
     if (
       (timeHours == 3 &&
