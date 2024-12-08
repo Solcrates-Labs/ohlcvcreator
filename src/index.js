@@ -9,8 +9,8 @@ expressApp.use(express.json());
 
 // GLOBAL VARIABLES LIST
 const address = new solana.PublicKey(
-  "Fch1oixTPri8zxBnmdCEADoJW2toyFHxqDZacQkwdvSP" // HARAMBE - maybe address variable should be assigned via dotenv
-); // address to base58 converter(address needs to be converted to whatever)
+  "Fch1oixTPri8zxBnmdCEADoJW2toyFHxqDZacQkwdvSP" // HARAMBE - change this to your desired solana token mint address
+);
 
 // clean this mess later
 let connection, tokenDecimals, rpcUrl, port;
@@ -104,7 +104,7 @@ async function connector() {
     if (typeof connection != "undefined") {
       console.log(
         chalk.yellow(
-          "The program will start gathering data on 4:00, 8:00, 12:00, 16:00, 20:00, 24:00, depending on your current time.\n"
+          "The program will start gathering data on 4:00, 8:00, 12:00, 16:00, 20:00, 24:00, depending on UTC time.\n"
         )
       );
     }
@@ -593,6 +593,7 @@ async function serverStart() {
     expressApp.listen(port, () => {
       console.log(`OHLCV API listening on port ${port}`);
     });
+    await UTCExecutor();
   } catch (error) {
     console.error("Error encountered during startup: ", error);
     process.exit(1);
