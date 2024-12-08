@@ -8,9 +8,11 @@
 
 # OHLCV Creator
 
-### OHLCV Creator is a powerful API selfhosted tool, that allows <br> gathering individual specified OHLCV(Open High Low Close Volume) <br> Data for all traders across all Solana on-chain memetokens. <br> Intended to use with Free RPC tiers from Solana providers
+OHLCV Creator is a powerful API selfhosted tool, that allows gathering individual specified OHLCV(Open High Low Close Volume)
 
-### Advantages of OHLCV Creator
+Data for all traders across all Solana on-chain memetokens. Intended to use with Free RPC tiers from Solana providers
+
+ **Advantages of OHLCV Creator**
 
 + 📖 Complete Open-Source, with easily modified code  
 
@@ -22,10 +24,12 @@
   
 + 💎 Works wonderful with free Solana RPC tiers(like Free or Freemium)
 
-## How to start using OHLCV Creator?
+### How to start using OHLCV Creator?
+
 **You can try our testing API available at endpoint:**
 
-<https://solcrateslabs.tech/ohlcv-creator/test-api/HARAMBE/time/1m> <br> 
+<https://solcrateslabs.tech/ohlcv-creator/test-api/HARAMBE/time/1m>
+
 **Possible time parameters: `1m`, `5m`, `15m`, `1hr` and `4hr`**
 
 ### 🦍 provides HARAMBE token data
@@ -45,10 +49,14 @@
 
 ```node ./src/index.js``` or just ```node .```
 
-**.env file will be created with RPC_URL and PORT variables. <br> Fill them up and launch OHLCV creator again.**
+.env file will be created with **RPC_URL** and **PORT** variables. Fill them up and launch OHLCV creator again.
+
+changed the `address` variable in the begging of the code to the mint address you want. It is `Fch1oixTPri8zxBnmdCEADoJW2toyFHxqDZacQkwdvSP` by default
 
 **NOTE: PORT MUST BE PORT FORWARDED IF YOU WANT TO USE PROGRAM OUTSIDE OF LOCALHOST**
 
-## Everything is set up. After launching, the program will start getting info at certain time
+---
+
+**Everything is set up. After launching, the program will start getting info at certain time**
 
 **To ensure the EXPRESS.JS functions are working correctly visit URL ```127.0.0.1:YOURPORT/ohlcv-creator/test-api/HARAMBE/time/1m``` after launching the application again**
