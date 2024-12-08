@@ -24,7 +24,9 @@
 
 ## How to start using OHLCV Creator?
 **You can try our testing API available at endpoint:**
-<https://solcrateslabs.tech/ohlcv-creator/test-api/HARAMBE/time/1m> <br> **Possible time parameters: `1m`, `5m`, `15m`, `1hr` and `4hr`**
+
+<https://solcrateslabs.tech/ohlcv-creator/test-api/HARAMBE/time/1m> <br> 
+**Possible time parameters: `1m`, `5m`, `15m`, `1hr` and `4hr`**
 
 ### 🦍 provides HARAMBE token data
 
