@@ -1,6 +1,4 @@
 <!-- [![](https://dcbadge.limes.pink/api/server/ySvyXEFZAK)](https://discord.gg/ySvyXEFZAK) -->
-![X (formerly Twitter) Follow](https://img.shields.io/twitter/follow/solcrateslabs)
-[![Telegram Badge](https://img.shields.io/badge/Telegram-blue?style=flat-square&logo=telegram&logoColor=FFFFFF&labelColor=48cae0&color=48cae0)](https://t.me/solcrateslabs)
 [![Email Badge](https://img.shields.io/badge/Contact-magenta?style=flat-square&logo=Gmail&logoColor=FFFFFF&labelColor=992580&color=FF00FF)](mailto:contact@solcrateslabs.tech)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
